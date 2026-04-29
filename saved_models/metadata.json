@@ -1,0 +1,105 @@
+{
+  "entrenado_en": "2026-04-28T22:14:24.246557",
+  "duracion_segundos": 17.35,
+  "features": [
+    "fiscal",
+    "privado",
+    "rural",
+    "nse_bajo",
+    "nse_alto",
+    "trabaja",
+    "dif_muy_alta",
+    "dif_alta",
+    "dif_baja",
+    "semana",
+    "pct",
+    "asist_acum",
+    "racha",
+    "max_racha",
+    "asist_critica",
+    "n_prac",
+    "n_exam",
+    "prom_parcial",
+    "prom_prac",
+    "prom_exam",
+    "ultima_nota",
+    "tend_reciente",
+    "min_nota",
+    "cn_acum",
+    "cn_sem",
+    "en_riesgo_parcial",
+    "tend_neg"
+  ],
+  "n_features": 27,
+  "tipo": "tiempo_real_semanal",
+  "semanas_por_trimestre": 13,
+  "nota_modelo_info": "Entrenado solo con semanas que tienen evaluaciones registradas",
+  "label_encoder_clases": [
+    "ED",
+    "DA",
+    "DO",
+    "DP"
+  ],
+  "xgb_riesgo": {
+    "accuracy": 0.9543,
+    "f1": 0.9543,
+    "auc": 0.9928,
+    "best_iteration": 308,
+    "cv_f1_mean": 0.9519,
+    "cv_f1_std": 0.0016
+  },
+  "rf_riesgo": {
+    "accuracy": 0.9535,
+    "f1": 0.9535,
+    "auc": 0.9923
+  },
+  "xgb_nota": {
+    "mae": 1.9551,
+    "r2": 0.9765,
+    "best_iteration": 382
+  },
+  "rf_nota": {
+    "mae": 1.9734,
+    "r2": 0.9755
+  },
+  "feature_importance": {
+    "en_riesgo_parcial": 0.4363920986652374,
+    "prom_parcial": 0.19978822767734528,
+    "asist_critica": 0.09469614177942276,
+    "prom_prac": 0.08429064601659775,
+    "asist_acum": 0.03438268601894379,
+    "privado": 0.01559564657509327,
+    "racha": 0.012784118764102459,
+    "n_prac": 0.010388674214482307,
+    "dif_muy_alta": 0.010368574410676956,
+    "prom_exam": 0.010216105729341507
+  },
+  "modelos": {
+    "xgboost": {
+      "riesgo_reprobar": {
+        "accuracy": 0.9543,
+        "f1_score": 0.9543,
+        "auc_roc": 0.9928,
+        "cv_f1_mean": 0.9519,
+        "cv_f1_std": 0.0016,
+        "best_iteration": 308
+      },
+      "nota_final": {
+        "mae": 1.9551,
+        "r2": 0.9765,
+        "best_iteration": 382
+      }
+    },
+    "random_forest": {
+      "riesgo_reprobar": {
+        "accuracy": 0.9535,
+        "f1_score": 0.9535,
+        "auc_roc": 0.9923
+      },
+      "nota_final": {
+        "mae": 1.9734,
+        "r2": 0.9755
+      }
+    }
+  }
+}
