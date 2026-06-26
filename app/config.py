@@ -3,8 +3,11 @@ app/config.py — Configuración centralizada del microservicio
 """
 
 from pathlib import Path
+# pyrefly: ignore [missing-import]
 from functools import lru_cache
+# pyrefly: ignore [missing-import]
 from pydantic_settings import BaseSettings
+# pyrefly: ignore [missing-import]
 from pydantic import ConfigDict
 
 
@@ -25,6 +28,9 @@ class Settings(BaseSettings):
     # extra="ignore" → cualquier variable del .env no declarada aquí
     # simplemente se descarta en lugar de lanzar ValidationError
     model_config = ConfigDict(env_file=".env", extra="ignore")
+    
+    # ── Youtube api key ────────────────────────────────────────────
+    youtube_api_key: str = ""
 
 
 @lru_cache()

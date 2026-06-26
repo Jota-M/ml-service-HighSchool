@@ -1,11 +1,21 @@
-fastapi==0.111.0
-uvicorn==0.29.0
-scikit-learn==1.4.2
-xgboost==2.0.3
-pandas==2.2.2
-numpy==1.26.4
+# ML Service — Dependencias v5
+# Instalar con: pip install -r requirements.txt
+
+# ── API ───────────────────────────────────────────────────────
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# ── ML ────────────────────────────────────────────────────────
+scikit-learn==1.5.2
+xgboost==2.1.1
 joblib==1.4.2
-python-dotenv==1.0.1
-pydantic==2.7.1
-pydantic-settings==2.2.1
-httpx==0.27.0
+numpy==1.26.4
+pandas==2.2.3
+
+# ── HTTP (para llamadas a Gemini) ─────────────────────────────
+httpx==0.27.2
+
+# ── Tests ─────────────────────────────────────────────────────
+# httpx ya incluido arriba — usado también para tests

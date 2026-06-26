@@ -1,22 +1,11 @@
 {
-  "entrenado_en": "2026-04-28T22:14:24.246557",
-  "duracion_segundos": 17.35,
+  "version": "v8.3",
+  "entrenado_en": "2026-05-21T14:56:48.037171",
+  "duracion_segundos": 1013.71,
   "features": [
-    "fiscal",
-    "privado",
-    "rural",
-    "nse_bajo",
-    "nse_alto",
-    "trabaja",
-    "dif_muy_alta",
-    "dif_alta",
-    "dif_baja",
     "semana",
     "pct",
     "asist_acum",
-    "racha",
-    "max_racha",
-    "asist_critica",
     "n_prac",
     "n_exam",
     "prom_parcial",
@@ -25,81 +14,174 @@
     "ultima_nota",
     "tend_reciente",
     "min_nota",
-    "cn_acum",
-    "cn_sem",
-    "en_riesgo_parcial",
-    "tend_neg"
+    "nota_trim_ant",
+    "asist_trim_ant",
+    "reprobo_trim_ant",
+    "racha_trims_riesgo",
+    "mejor_nota_historica",
+    "tend_intertrimestral",
+    "reprobo_misma_mat_ant",
+    "n_obs_conducta",
+    "n_obs_socioem",
+    "n_obs_urgentes",
+    "n_logros",
+    "ratio_obs_negativas",
+    "n_materias_riesgo_sim",
+    "reprobo_mat_correlac",
+    "regimen_pond",
+    "nivel_educativo",
+    "horas_grado",
+    "estilo_docente"
   ],
-  "n_features": 27,
-  "tipo": "tiempo_real_semanal",
-  "semanas_por_trimestre": 13,
-  "nota_modelo_info": "Entrenado solo con semanas que tienen evaluaciones registradas",
-  "label_encoder_clases": [
-    "ED",
-    "DA",
-    "DO",
-    "DP"
+  "n_features": 29,
+  "grupos_features": {
+    "Legacy (14)": [
+      "semana",
+      "pct",
+      "asist_acum",
+      "n_prac",
+      "n_exam",
+      "prom_parcial",
+      "prom_prac",
+      "prom_exam",
+      "ultima_nota",
+      "tend_reciente",
+      "min_nota"
+    ],
+    "Historial (7)": [
+      "nota_trim_ant",
+      "asist_trim_ant",
+      "reprobo_trim_ant",
+      "racha_trims_riesgo",
+      "mejor_nota_historica",
+      "tend_intertrimestral",
+      "reprobo_misma_mat_ant"
+    ],
+    "Observaciones (5)": [
+      "n_obs_conducta",
+      "n_obs_socioem",
+      "n_obs_urgentes",
+      "n_logros",
+      "ratio_obs_negativas"
+    ],
+    "Correlación (2)": [
+      "n_materias_riesgo_sim",
+      "reprobo_mat_correlac"
+    ],
+    "Ponderación (1)": [
+      "regimen_pond"
+    ],
+    "Nivel educativo (2)": [
+      "nivel_educativo",
+      "horas_grado"
+    ],
+    "Docente (1)": [
+      "estilo_docente"
+    ]
+  },
+  "tipo": "tiempo_real_semanal_con_historial",
+  "total_semanas_periodo": 13,
+  "features_nuevas_v8": {
+    "historial": [
+      "nota_trim_ant",
+      "asist_trim_ant",
+      "reprobo_trim_ant",
+      "racha_trims_riesgo",
+      "mejor_nota_historica",
+      "tend_intertrimestral",
+      "reprobo_misma_mat_ant"
+    ],
+    "observaciones": [
+      "n_obs_conducta",
+      "n_obs_socioem",
+      "n_obs_urgentes",
+      "n_logros",
+      "ratio_obs_negativas"
+    ],
+    "correlacion": [
+      "n_materias_riesgo_sim",
+      "reprobo_mat_correlac"
+    ],
+    "ponderacion": [
+      "regimen_pond"
+    ]
+  },
+  "features_nuevas_v8_1": {
+    "nivel_educativo": [
+      "nivel_educativo",
+      "horas_grado"
+    ]
+  },
+  "features_nuevas_v8_2": {
+    "docente": [
+      "estilo_docente"
+    ]
+  },
+  "regimenes_ponderacion": {
+    "2021": {
+      "SAB": 0.35,
+      "HAC": 0.35,
+      "SER_doc": 0.1,
+      "DEC_doc": 0.1
+    },
+    "2022_2025": {
+      "SAB": 0.45,
+      "HAC": 0.4,
+      "SER_doc": 0.05,
+      "DEC_doc": 0.05
+    },
+    "2026": {
+      "SAB": 0.45,
+      "HAC": 0.4,
+      "SER_doc": 0.1,
+      "DEC_doc": 0.0
+    }
+  },
+  "arquetipos": [
+    "solido",
+    "resiliente",
+    "tardio",
+    "fragil",
+    "cronico",
+    "desertor_parcial"
   ],
   "xgb_riesgo": {
-    "accuracy": 0.9543,
-    "f1": 0.9543,
-    "auc": 0.9928,
-    "best_iteration": 308,
-    "cv_f1_mean": 0.9519,
-    "cv_f1_std": 0.0016
+    "accuracy": 0.9595,
+    "f1": 0.9594,
+    "auc": 0.9929,
+    "best_iteration": 599,
+    "cv_f1_mean": 0.956,
+    "cv_f1_std": 0.0001
   },
   "rf_riesgo": {
-    "accuracy": 0.9535,
-    "f1": 0.9535,
-    "auc": 0.9923
+    "accuracy": 0.9564,
+    "f1": 0.9569,
+    "auc": 0.9931
   },
   "xgb_nota": {
-    "mae": 1.9551,
-    "r2": 0.9765,
-    "best_iteration": 382
+    "mae": 2.3264,
+    "r2": 0.9677,
+    "best_iteration": 599
   },
   "rf_nota": {
-    "mae": 1.9734,
-    "r2": 0.9755
+    "mae": 2.2955,
+    "r2": 0.9683
   },
   "feature_importance": {
-    "en_riesgo_parcial": 0.4363920986652374,
-    "prom_parcial": 0.19978822767734528,
-    "asist_critica": 0.09469614177942276,
-    "prom_prac": 0.08429064601659775,
-    "asist_acum": 0.03438268601894379,
-    "privado": 0.01559564657509327,
-    "racha": 0.012784118764102459,
-    "n_prac": 0.010388674214482307,
-    "dif_muy_alta": 0.010368574410676956,
-    "prom_exam": 0.010216105729341507
-  },
-  "modelos": {
-    "xgboost": {
-      "riesgo_reprobar": {
-        "accuracy": 0.9543,
-        "f1_score": 0.9543,
-        "auc_roc": 0.9928,
-        "cv_f1_mean": 0.9519,
-        "cv_f1_std": 0.0016,
-        "best_iteration": 308
-      },
-      "nota_final": {
-        "mae": 1.9551,
-        "r2": 0.9765,
-        "best_iteration": 382
-      }
-    },
-    "random_forest": {
-      "riesgo_reprobar": {
-        "accuracy": 0.9535,
-        "f1_score": 0.9535,
-        "auc_roc": 0.9923
-      },
-      "nota_final": {
-        "mae": 1.9734,
-        "r2": 0.9755
-      }
-    }
+    "reprobo_trim_ant": 0.719961404800415,
+    "racha_trims_riesgo": 0.15920419991016388,
+    "prom_parcial": 0.04255252331495285,
+    "prom_prac": 0.012179845944046974,
+    "nota_trim_ant": 0.011831052601337433,
+    "n_prac": 0.010692627169191837,
+    "mejor_nota_historica": 0.006232768297195435,
+    "prom_exam": 0.005847632419317961,
+    "min_nota": 0.0052579352632164955,
+    "ultima_nota": 0.0048002260737121105,
+    "n_exam": 0.003854920854791999,
+    "reprobo_mat_correlac": 0.003554190043359995,
+    "pct": 0.0017201703740283847,
+    "estilo_docente": 0.001379543449729681,
+    "n_obs_urgentes": 0.001340756076388061
   }
 }

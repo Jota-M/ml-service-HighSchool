@@ -1,23 +1,28 @@
 """
-main.py — Entrypoint del microservicio ML
+main.py — Entrypoint del microservicio ML v8.1
 
 Arranca con:
     uvicorn main:app --reload --port 8000
 
 Swagger UI disponible en:
     http://localhost:8000/docs
+
+Cambios respecto a v7:
+  - Descripción actualizada: 31 features, modelos con historial
+  - DEBUG de Gemini key movido a un logger en lugar de print
+    para no contaminar stdout en producción
+  - CORS: sin cambios
 """
 
 import logging
 from contextlib import asynccontextmanager
 
+# pyrefly: ignore [missing-import]
 from fastapi import FastAPI
+# pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-# DEBUG TEMPORAL — sacar después
-settings = get_settings()
-print(f"DEBUG GEMINI KEY: '{settings.gemini_api_key[:8]}...' modelo: {settings.gemini_model}")
 from app.services.ml_service import modelo_manager
 from app.routers import prediccion
 
@@ -43,11 +48,19 @@ async def lifespan(app: FastAPI):
     settings = get_settings()
     logger.info(f"🚀 Iniciando {settings.app_name} v{settings.app_version}")
 
+    # Debug de configuración — solo en INFO, no en print
+    key_preview = settings.gemini_api_key[:8] if settings.gemini_api_key else "NO CONFIGURADA"
+    logger.info(f"Gemini key: '{key_preview}...' | modelo: {settings.gemini_model}")
+
     cargado = modelo_manager.cargar(settings.models_path)
     if cargado:
-        logger.info("✅ Modelos ML listos")
+        logger.info(
+            f"✅ Modelos ML listos — "
+            f"versión: {modelo_manager.version} | "
+            f"features: {modelo_manager.n_features}"
+        )
     else:
-        logger.warning("⚠️  Modelos no disponibles — ejecuta models/train.py")
+        logger.warning("⚠️  Modelos no disponibles — ejecuta models/train_v8.py")
 
     yield
 
@@ -65,19 +78,32 @@ app = FastAPI(
     title       = settings.app_name,
     version     = settings.app_version,
     description = """
-## 🎓 Microservicio de Predicción de Rendimiento Estudiantil
+## 🎓 Microservicio de Predicción de Rendimiento Estudiantil v8.1
 
 Sistema de IA híbrido para instituciones educativas bolivianas.
 
 ### Capacidades
-- **Predicción** de riesgo de reprobar T3 basada en T1 y T2
+- **Predicción** de riesgo de reprobar basada en datos del trimestre actual
+- **Historial** intertrimestral — el modelo recuerda los trimestres anteriores
+- **Observaciones** pedagógicas — conducta, socioemocional, logros
+- **Correlación** entre materias — detecta dificultad generalizada
 - **Estimación** de nota final del trimestre
 - **Simulación** de escenarios de intervención pedagógica
-- **Análisis narrativo** con Gemini AI
+- **Análisis narrativo** con Gemini AI — planes de recuperación con contexto histórico
 
 ### Modelos disponibles
-- Random Forest (93.97% accuracy)
-- XGBoost (94.56% accuracy)
+- Random Forest
+- XGBoost (recomendado)
+
+### Features del modelo
+- 14 features legacy (asistencia, notas, tendencia)
+- 7 features de historial intertrimestral
+- 5 features de observaciones pedagógicas
+- 2 features de correlación entre materias
+- 2 features de nivel educativo y carga horaria
+- 1 feature de régimen de ponderación ministerial
+
+**Total: 29 features**
 
 ### Escala boliviana
 - `ED` En Desarrollo: 0–50 (reprobado)
@@ -110,8 +136,10 @@ app.include_router(
 @app.get("/", tags=["Root"])
 async def root():
     return {
-        "servicio": settings.app_name,
-        "version":  settings.app_version,
-        "docs":     "/docs",
-        "health":   "/api/v1/health",
+        "servicio":  settings.app_name,
+        "version":   settings.app_version,
+        "modelo":    modelo_manager.version,
+        "features":  modelo_manager.n_features,
+        "docs":      "/docs",
+        "health":    "/api/v1/health",
     }

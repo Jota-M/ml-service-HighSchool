@@ -1,0 +1,152 @@
+============================================================
+  ENTRENAMIENTO Unidad Educativa La Voz de Cristo
+     Sistema Educativo Bolivia
+     29 features (eliminadas racha/max_racha/asist_critica)
+     reprobo_misma_mat_ant como continuo, no flag binario
+============================================================
+
+Cargando dataset
+Usando: dataset_tiempo_real_v8.csv
+
+Filas: 1,472,640
+Features disponibles: 29/29
+
+Distribución:
+No reprueba: 1,072,509
+Reprueba: 400,131
+
+
+Nivel educativo:
+Secundaria: 1,135,721
+Primaria: 336,919
+
+Periodo detectado: 13 semanas
+Features a usar: 29/29
+
+============================================================
+MODELOS RIESGO – 1,472,640 filas | 29 features
+============================================================
+
+Train: 1,178,112
+Test: 294,528
+
+✅ XGBoost – Riesgo
+
+Accuracy: 95.95%
+F1: 0.9594
+AUC: 0.9929
+
+Best iteration: 599
+
+Classification Report:
+
+              precision    recall  f1-score   support
+
+No reprueba      0.97      0.98      0.97    214502
+Reprueba         0.93      0.92      0.92     80026
+
+accuracy                             0.96    294528
+macro avg        0.95      0.95      0.95    294528
+weighted avg     0.96      0.96      0.96    294528
+
+Confusion Matrix:
+
+[[209153   5349]
+ [  6571  73455]]
+
+Importancia por GRUPO de features:
+
+Legacy (14)               9.0%
+Historial (7)            89.9%
+Observaciones (5)         0.4%
+Correlación (2)           0.4%
+Ponderación (1)           0.0%
+Nivel educativo (2)       0.1%
+Docente (1)               0.1%
+
+Top 10 features individuales:
+
+reprobo_trim_ant            0.7200   [Historial]
+racha_trims_riesgo          0.1592   [Historial]
+prom_parcial                0.0426   [Legacy]
+prom_prac                   0.0122   [Legacy]
+nota_trim_ant               0.0118   [Historial]
+n_prac                      0.0107   [Legacy]
+mejor_nota_historica        0.0062   [Historial]
+prom_exam                   0.0058   [Legacy]
+min_nota                    0.0053   [Legacy]
+ultima_nota                 0.0048   [Legacy]
+
+★ Features nuevas aportan 91.0%
+→ El historial está siendo útil
+
+🌲 Random Forest – Riesgo
+
+Accuracy: 95.64%
+F1: 0.9569
+AUC: 0.9931
+
+📈 Cross-validation XGBoost Riesgo (5-fold)
+
+F1 promedio:
+0.9560 ± 0.0001
+
+============================================================
+MODELOS NOTA – solo filas con evaluaciones
+============================================================
+
+Filas con evaluaciones:
+1,270,612 (86.3%)
+
+Train: 1,016,489
+Test: 254,123
+
+✅ XGBoost – Nota
+
+MAE: 2.33 pts
+R²: 0.9677
+
+Best iteration: 599
+
+🌲 Random Forest – Nota
+
+MAE: 2.30 pts
+R²: 0.9683
+
+📊 MAE por semana (XGBoost Nota)
+
+Semana     % período     MAE      R²      filas
+-------------------------------------------------
+Semana 3      23%       3.74   0.9362    90,498
+Semana 5      38%       3.40   0.9459   109,474
+Semana 7      54%       2.16   0.9742   113,241
+Semana 9      69%       1.96   0.9782   113,296
+Semana 11     85%       1.77   0.9817   113,300
+Semana 13    100%       0.53   0.9988   113,286
+
+============================================================
+GUARDANDO METADATA
+============================================================
+
+📁 metadata.json
+→ C:\Users\JoA\Downloads\PDG\LVC-Proyect\ml-service\saved_models\metadata.json
+
+============================================================
+★ COMPLETADO en 1013.7s
+============================================================
+
+XGB Riesgo:
+95.95% accuracy | AUC 0.9929
+
+RF Riesgo:
+95.64% accuracy | AUC 0.9931
+
+XGB Nota:
+MAE 2.33 pts | R² 0.9677
+
+RF Nota:
+MAE 2.30 pts | R² 0.9683
+
+Modelos guardados en:
+C:\Users\JoA\Downloads\PDG\LVC-Proyect\ml-service\saved_models
+============================================================
